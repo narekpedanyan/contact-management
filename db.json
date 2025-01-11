@@ -1,0 +1,25 @@
+{
+  "contacts": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "userName": "johndoe",
+      "bio": "Some description",
+      "image": ""
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "userName": "jane.smith@example",
+      "bio": "Some bio here",
+      "image": ""
+    },
+    {
+      "id": 3,
+      "name": "Spider Man",
+      "userName": "spider.man",
+      "bio": "Some bio for spiders",
+      "image": ""
+    }
+  ]
+}

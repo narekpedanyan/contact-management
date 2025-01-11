@@ -15,8 +15,7 @@ const rootRoute = createRootRoute({
 
 const contactsRoute = createRoute({
     getParentRoute: () => rootRoute,
-    path: 'contacts', // This makes the base path '/contacts'
-    component: Details,
+    path: 'contacts',
 });
 
 const redirectToContactsRoute = createRoute({
