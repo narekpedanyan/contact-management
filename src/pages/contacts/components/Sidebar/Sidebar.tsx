@@ -1,5 +1,5 @@
 import {Link, useMatch} from "@tanstack/react-router";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState, useRef, useMemo } from "react";
 import {useQuery} from "@tanstack/react-query";
 import {TContact} from "../../../../types";
 import styles from './sidebar.module.scss';
@@ -9,6 +9,8 @@ import {ContactsService} from "../../ContactsService.ts";
 import {useSidebarContext} from "../../../../context/SidebarContext.tsx";
 
 const Sidebar: FC = () => {
+    const [searchKey, setSearchKey] = useState("");
+    const timeoutIdRef = useRef<null | number>(null);
     const { sidebarEvents } = useSidebarContext();
     const match = useMatch({
         from: '/contacts/$contactId',
@@ -21,11 +23,31 @@ const Sidebar: FC = () => {
         queryFn: ContactsService.FetchContacts,
         gcTime: 0,
     });
-    const contacts = contactsData ?? [];
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        if (timeoutIdRef.current) {
+            clearTimeout(timeoutIdRef.current);
+        }
+
+        timeoutIdRef.current = setTimeout(() => {
+            setSearchKey(value);
+        }, 500) as unknown as number;
+    };
+
+    const contacts = useMemo(() => {
+        const data = contactsData ?? [];
+        if (!searchKey) return data;
+        return data.filter(
+            (item) => {
+                return item.name.toLowerCase().includes(searchKey.toLowerCase());
+            }
+        );
+    }, [contactsData, searchKey]);
 
     useEffect(() => {
         if (sidebarEvents.includes('reFetchContacts')) {
-            refetch();
+            void refetch();
         }
     }, [sidebarEvents]);
 
@@ -36,6 +58,7 @@ const Sidebar: FC = () => {
                     <input
                         type="text"
                         className="w-full p-1 rounded flex-1 text-base"
+                        onChange={handleInputChange}
                     />
                 </div>
                 <div>

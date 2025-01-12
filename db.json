@@ -20,6 +20,13 @@
       "userName": "naropedan",
       "bio": "How to Webpage test",
       "imageUrl": "https://img.freepik.com/free-psd/3d-render-avatar-character_23-2150611765.jpg?semt=ais_hybrid"
+    },
+    {
+      "id": "e3e8",
+      "name": "John Doe",
+      "userName": "johndoe",
+      "bio": "Some bio info",
+      "imageUrl": "https://img.freepik.com/free-psd/3d-render-avatar-character_23-2150611765.jpg?semt=ais_hybrid"
     }
   ]
 }
