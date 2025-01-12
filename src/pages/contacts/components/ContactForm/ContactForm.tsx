@@ -3,7 +3,7 @@ import { useForm } from "@tanstack/react-form";
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { z } from "zod";
 import {TContactFormValues} from "../../../../types";
-import FieldInfo from "../FieldInfo/FieldInfo.tsx";
+import FieldInfo from "../../../../components/FieldInfo/FieldInfo.tsx";
 
 type TFieldName = 'name' | 'userName' | 'bio' | 'imageUrl';
 

@@ -7,6 +7,8 @@ import Loading from "../../../../components/Loading/Loading.tsx";
 import Modal from "../../../../components/Modal/Modal.tsx";
 import {AxiosError} from "axios";
 import {useSidebarContext} from "../../../../context/SidebarContext.tsx";
+import {toast} from "react-hot-toast";
+import {errorDefaultMessage} from "../../../../utils";
 
 const ContactDetails = () => {
     const [isDeleteModalOpened, toggleDeleteModal] = useState(false);
@@ -36,7 +38,7 @@ const ContactDetails = () => {
             void navigate({ to: '/contacts' });
         },
         onError: (error: AxiosError<{ message: string }>) => {
-            console.log(error, 'error');
+            toast.error(error?.message || errorDefaultMessage);
         },
     });
 
@@ -65,9 +67,10 @@ const ContactDetails = () => {
                     <div className="max-w-3xl p-6 bg-white rounded-lg shadow-md flex items-start space-x-4">
                         <div className="w-24 h-24 flex-shrink-0">
                             <img
+                                style={{ objectFit: 'cover' }}
                                 src={imageUrl}
                                 alt={`${name}'s avatar`}
-                                className="w-full h-full object-cover rounded-full border border-gray-300"
+                                className="w-full h-full object-cover rounded-3xl border border-gray-300"
                             />
                         </div>
                         <div className="flex-1">

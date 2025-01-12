@@ -1,0 +1,1 @@
+export const errorDefaultMessage = 'Something went wrong!';

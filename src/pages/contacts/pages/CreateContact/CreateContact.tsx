@@ -4,6 +4,9 @@ import { useMutation } from '@tanstack/react-query';
 import {TContactFormValues} from "../../../../types";
 import {ContactsService} from "../../ContactsService.ts";
 import {useSidebarContext} from "../../../../context/SidebarContext.tsx";
+import {toast} from "react-hot-toast";
+import {errorDefaultMessage} from "../../../../utils";
+import ImageUrls from "../../../../components/ImageUrls/ImageUrls.tsx";
 
 const CreateContact = () => {
     const { triggerEvent } = useSidebarContext();
@@ -14,7 +17,7 @@ const CreateContact = () => {
             triggerEvent('reFetchContacts');
         },
         onError: (error: AxiosError<{ message: string }>) => {
-            console.log(error, 'error');
+            toast.error(error?.message || errorDefaultMessage);
         },
     });
 
@@ -25,6 +28,7 @@ const CreateContact = () => {
     return (
         <div>
             <ContactForm onSubmit={onSubmit} />
+            <ImageUrls />
         </div>
     )
 }

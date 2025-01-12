@@ -1,13 +1,16 @@
-import {useMatch} from "@tanstack/react-router";
+import {useMatch, useNavigate} from "@tanstack/react-router";
 import {useMutation, useQuery} from "@tanstack/react-query";
+import { toast } from 'react-hot-toast';
 import {TContact, TContactFormValues} from "../../../../types";
 import {ContactsService} from "../../ContactsService.ts";
 import ContactForm from "../../components/ContactForm/ContactForm.tsx";
 import Loading from "../../../../components/Loading/Loading.tsx";
 import {AxiosError} from "axios";
 import {useSidebarContext} from "../../../../context/SidebarContext.tsx";
+import {errorDefaultMessage} from "../../../../utils";
 
 const EditContact = () => {
+    const navigate = useNavigate({ from: '/contacts/$contactId/edit' });
     const { triggerEvent } = useSidebarContext();
     const match = useMatch({ from: '/contacts/$contactId/edit' });
     const { contactId } = match.params;
@@ -22,10 +25,12 @@ const EditContact = () => {
         mutationFn: ContactsService.UpdateContact,
         onSuccess: async () => {
             triggerEvent('reFetchContacts');
-            void refetch();
+            void refetch().then(()=> {
+                void navigate({ to: `/contacts/${contactId}` });
+            });
         },
         onError: (error: AxiosError<{ message: string }>) => {
-            console.log(error, 'error');
+            toast.error(error?.message || errorDefaultMessage);
         },
     });
 
