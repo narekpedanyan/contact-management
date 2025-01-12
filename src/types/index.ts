@@ -1,7 +1,9 @@
-export interface Contact {
-    id: number;
+export interface TContact {
+    id: string;
     name: string;
     userName: string;
-    bio: string;
-    image: string;
+    bio?: string;
+    imageUrl?: string;
 }
+
+export type TContactFormValues = Omit<TContact, "id">;

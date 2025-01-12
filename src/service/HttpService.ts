@@ -36,6 +36,5 @@ export const requests = {
         axiosInstance.put(url, body).then(responseBody),
     patch: async (url: string, body: Record<string, any>) =>
         axiosInstance.patch(url, body).then(responseBody),
-
     delete: async (url: string) => axiosInstance.delete(url).then(responseBody),
 };
