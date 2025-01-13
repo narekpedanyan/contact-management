@@ -10,9 +10,6 @@ export const axiosInstance = axios.create({
 });
 
 const responseBody = (response: AxiosResponse) => {
-    if (response?.data === 'unauthorized') {
-        throw new Error('retry');
-    }
     return response?.data;
 };
 
